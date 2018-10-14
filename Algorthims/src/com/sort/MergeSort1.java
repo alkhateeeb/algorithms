@@ -23,14 +23,35 @@ public class MergeSort1 {
 	private static <T> void merge(T[] a, int min, int mid, int high) {
 		System.out.println("Min :: " + min + " :: Mid :: " + mid + " :: High :: " + high);
 		aux = new Object[high - min + 1];
+		
+		// map aux indices 
+		int firstAuxIndex = mid
+		
 		int firstIndex = min;
 		int midIndex = mid;
-		for (int index = min; index < high; index++) {
-			aux[index] = a[index];
+		int startAuxIndex = min;
+		for (int index = 0; index < aux.length; index++) {
+			aux[index] = a[startAuxIndex++];
 		}
-		
-		
-		
+
+		int index = min;
+		while (midIndex <= high && firstIndex <= mid) {
+			if (less(aux[midIndex], aux[firstIndex])) {
+				a[index] = (T) aux[midIndex];
+				midIndex++;
+			} else {
+				a[firstIndex] = (T) aux[firstIndex];
+				firstIndex++;
+			}
+			index++;
+		}
+		for (int index2 = firstIndex; firstIndex <= mid; index2++) {
+			a[index++] = (T) aux[index2];
+		}
+		for (int index2 = midIndex; index <= high; index++) {
+			a[index++] = (T) aux[index2];
+		}
+
 	}
 
 	private static <T> void exchnage(T[] a, int i, int j) {
