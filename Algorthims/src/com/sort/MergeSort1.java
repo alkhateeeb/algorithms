@@ -23,10 +23,11 @@ public class MergeSort1 {
 	private static <T> void merge(T[] a, int min, int mid, int high) {
 		System.out.println("Min :: " + min + " :: Mid :: " + mid + " :: High :: " + high);
 		aux = new Object[high - min + 1];
-		
-		// map aux indices 
-		int firstAuxIndex = mid
-		
+
+		// map aux indices
+		int firstAuxIndex = 0;
+		int midAuxIndex = aux.length / 2;
+
 		int firstIndex = min;
 		int midIndex = mid;
 		int startAuxIndex = min;
@@ -35,20 +36,26 @@ public class MergeSort1 {
 		}
 
 		int index = min;
-		while (midIndex <= high && firstIndex <= mid) {
-			if (less(aux[midIndex], aux[firstIndex])) {
-				a[index] = (T) aux[midIndex];
+		int midIndexObserver = 0;
+		while (midIndex < high && firstIndex <= mid) {
+			if (less(aux[midAuxIndex], aux[firstAuxIndex])) {
+				a[index] = (T) aux[midAuxIndex];
+				midAuxIndex++;
 				midIndex++;
+				midIndexObserver++;
 			} else {
-				a[firstIndex] = (T) aux[firstIndex];
+				a[index] = (T) aux[firstAuxIndex];
+				firstAuxIndex++;
 				firstIndex++;
 			}
 			index++;
 		}
-		for (int index2 = firstIndex; firstIndex <= mid; index2++) {
+
+		for (int index2 = firstAuxIndex; index2 < midAuxIndex - midIndexObserver; index2++) {
 			a[index++] = (T) aux[index2];
 		}
-		for (int index2 = midIndex; index <= high; index++) {
+		int max = aux.length;
+		for (int index2 = midAuxIndex; index2 < max; index2++) {
 			a[index++] = (T) aux[index2];
 		}
 
