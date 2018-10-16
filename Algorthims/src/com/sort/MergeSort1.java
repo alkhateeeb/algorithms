@@ -6,7 +6,7 @@ public class MergeSort1 {
 
 	public static <T> void sort(T[] a) {
 		// 66, 50, 33, 2, 22, 44, 1, 3, 12
-		sort(a, 0, a.length);
+		sort(a, 0, a.length - 1);
 	}
 
 	private static <T> void sort(T[] a, int min, int high) {
@@ -27,7 +27,9 @@ public class MergeSort1 {
 		// map aux indices
 		int firstAuxIndex = 0;
 		int midAuxIndex = aux.length / 2;
-
+		if (midAuxIndex % 2 != 0 && midAuxIndex != 1) {
+			midAuxIndex++;
+		}
 		int firstIndex = min;
 		int midIndex = mid;
 		int startAuxIndex = min;
@@ -37,7 +39,7 @@ public class MergeSort1 {
 
 		int index = min;
 		int midIndexObserver = 0;
-		while (midIndex < high && firstIndex <= mid) {
+		while (midIndex < high && firstIndex <= mid && firstAuxIndex < midAuxIndex) {
 			if (less(aux[midAuxIndex], aux[firstAuxIndex])) {
 				a[index] = (T) aux[midAuxIndex];
 				midAuxIndex++;
